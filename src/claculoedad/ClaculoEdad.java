@@ -8,13 +8,17 @@ package claculoedad;
 
 /**
  *
- * @author Jr Imbaquingo
+ * @author edwin
  */
 import java.util.Date;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.io.IOException;
 import java.util.Scanner;
+ import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.File;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 public class ClaculoEdad {
 
@@ -69,10 +73,33 @@ public class ClaculoEdad {
         }
         
         JOptionPane.showMessageDialog(null,"Tiene la edad de: " + dia + "dias/ " + mes + " meses/ " + anio + " a;nos ");
-      
+       paraArchivar(dia, mes, anio); 
     }catch (Exception ex) {
             System.out.println("Ha habido un error " + ex.toString());
+           
     }
     }
-    
+    public static void paraArchivar(int dia, int mes, int anio) {
+		FileWriter flwriter = null;
+              File directorio = new File("C:\\Ingeneria_S");
+               directorio.mkdir();
+                
+		try {
+                       flwriter = new FileWriter("C:\\Ingeneria_S\\CalculoEdad.txt", true);
+		BufferedWriter bfwriter = new BufferedWriter(flwriter);
+     		
+                        
+		bfwriter.write( "Su edad es = " + anio + " años " + mes + " meses "+ dia + " dias" +"\n");
+		bfwriter.close();
+		
+		} catch (IOException e) {
+		} finally {
+			if (flwriter != null) {
+				try {
+					flwriter.close();
+				} catch (IOException e) {
+				}
+			}
+	}
+	}
 }
